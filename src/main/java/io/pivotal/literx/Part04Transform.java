@@ -9,30 +9,33 @@ import reactor.core.publisher.Mono;
  *
  * @author Sebastien Deleuze
  */
-public class Part04Transform {
+public class Part04Transform{
 
 //========================================================================================
 
 	// TODO Capitalize the user username, firstname and lastname
-	Mono<User> capitalizeOne(Mono<User> mono) {
-		return null;
+	Mono<User> capitalizeOne(Mono<User> mono){
+		return mono.map(u -> new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase())); 
 	}
 
 //========================================================================================
 
 	// TODO Capitalize the users username, firstName and lastName
-	Flux<User> capitalizeMany(Flux<User> flux) {
-		return null;
+	Flux<User> capitalizeMany(Flux<User> flux){
+		return flux.map(u -> new User(
+				u.getUsername().toUpperCase(),
+				u.getFirstname().toUpperCase(),
+				u.getLastname().toUpperCase())); 
 	}
 
 //========================================================================================
 
 	// TODO Capitalize the users username, firstName and lastName using #asyncCapitalizeUser
-	Flux<User> asyncCapitalizeMany(Flux<User> flux) {
-		return null;
+	Flux<User> asyncCapitalizeMany(Flux<User> flux){
+		return flux.flatMap(u -> asyncCapitalizeUser(u)); 
 	}
 
-	Mono<User> asyncCapitalizeUser(User u) {
+	Mono<User> asyncCapitalizeUser(User u){
 		return Mono.just(new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase()));
 	}
 
